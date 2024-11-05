@@ -24,17 +24,24 @@ if file is not None:
     # Display the selected rows and columns of the DataFrame
     st.write(df[:n_rows][columns_to_show])
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        # Dropdown menu to select the x-axis column for the scatter plot
-        x_column = st.selectbox("Select column on x axis :",numerical_columns)
-    with col2:
-        # Dropdown menu to select the y-axis column for the scatter plot
-        y_column = st.selectbox("Select column on y axis :",numerical_columns)
-    with col3:
-        color = st.selectbox("Select column to be colored :",df.columns)
+    tab1, tab2 = st.tabs(["Scatter plot","Histogram"])
+    with tab1:
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            # Dropdown menu to select the x-axis column for the scatter plot
+            x_column = st.selectbox("Select column on x axis :",numerical_columns)
+        with col2:
+            # Dropdown menu to select the y-axis column for the scatter plot
+            y_column = st.selectbox("Select column on y axis :",numerical_columns)
+        with col3:
+            color = st.selectbox("Select column to be colored :",df.columns)
 
-    # Create a scatter plot with the selected x and y columns
-    fig_scatter = px.scatter(df,x = x_column,y = y_column,color = color)
-    # Display the scatter plot in the Streamlit app
-    st.plotly_chart(fig_scatter)
+        # Create a scatter plot with the selected x and y columns
+        fig_scatter = px.scatter(df,x = x_column,y = y_column,color = color)
+        # Display the scatter plot in the Streamlit app
+        st.plotly_chart(fig_scatter)
+    with tab2:
+        # Create a histogram
+        histogram_feature = st.selectbox("Select feature to histogram :",numerical_columns)
+        fig_hist = px.histogram(df,x = histogram_feature)
+        st.plotly_chart(fig_hist)
