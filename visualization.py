@@ -26,11 +26,14 @@ if file is not None:
 
     # Dropdown menu to select the x-axis column for the scatter plot
     x_column = st.selectbox("Select column on x axis :",numerical_columns)
+
     # Dropdown menu to select the y-axis column for the scatter plot
     y_column = st.selectbox("Select column on y axis :",numerical_columns)
 
+    color = st.selectbox("Select column to be colored :",df.columns)
+
     # Create a scatter plot with the selected x and y columns
-    fig_scatter = px.scatter(df,x = x_column,y = y_column)
+    fig_scatter = px.scatter(df,x = x_column,y = y_column,color = color)
     # Display the scatter plot in the Streamlit app
     st.plotly_chart(fig_scatter)
 
