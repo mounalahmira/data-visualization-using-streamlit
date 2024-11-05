@@ -5,6 +5,9 @@ import numpy as np
 
 # Set the title of the Streamlit app
 st.title("Visualization")
+@st.cache_data
+def load_data(file):
+    return pd.read_csv(file)
 
 # File uploader for users to upload CSV files
 file = st.file_uploader("Upload a file",type=["csv"])
@@ -12,7 +15,7 @@ file = st.file_uploader("Upload a file",type=["csv"])
 # Check if a file has been uploaded
 if file is not None:
     # Read the uploaded CSV file into a DataFrame
-    df = pd.read_csv(file)
+    df = load_data(file)
 
     # Slider for selecting the number of rows to display
     n_rows = st.slider("Choose number of rows to display",min_value=5,max_value=len(df),step=1)
